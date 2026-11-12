@@ -1,0 +1,6 @@
+requests==2.31.0
+pymongo==4.6.1
+pandas
+matplotlib==3.8.2
+seaborn==0.13.1
+jupyter==1.0.0
