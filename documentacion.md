@@ -61,3 +61,9 @@ Sobre el DataFrame limpio se aplicaron operaciones vectorizadas de `pandas`:
 3. **Frecuencia absoluta de riesgo (`df['es_peligroso'].sum()`):** 74 asteroides catalogados como peligrosos (al sumar una serie booleana, Python evalúa `True = 1` y `False = 0`).
 4. **Proporción de riesgo:** `(peligrosos / total_asteroides) * 100`, arrojando un `24.7%` de objetos peligrosos en la muestra.
 5. **Valor extremo (`df.loc[df['diametro_km_max'].idxmax()]`):** `idxmax()` devuelve el índice de la fila con el valor máximo en la columna de diámetro, permitiendo recuperar el registro completo del asteroide más grande: `'1036 Ganymed (A924 UB)'` con `87.10 km`.
+
+### Celda 3: Visualización de Datos (Dashboard Estadístico)
+Se diseñó una figura compuesta (`1x3` subplots) mediante `matplotlib` con estilo editorial limpio (`#FAFAFA`), eliminación de bordes superiores/derechos (*spines*) y etiquetas directas:
+1. **Gráfico de Dona (`axes[0].pie`):** Representa la proporción porcentual de `es_peligroso` (`75.3%` inofensivos frente a `24.7%` potencialmente peligrosos) con separación de segmento crítico y un indicador central del total de registros (`300`).
+2. **Histograma con Línea de Referencia (`axes[1].hist`):** Analiza la distribución de frecuencias de `magnitud_absoluta` en 15 intervalos, superponiendo una línea punteada vertical (`axvline`) que señala el promedio de la muestra.
+3. **Gráfico de Barras Horizontales con Degradado (`axes[2].barh`):** Filtra los 5 objetos de mayor diámetro mediante `df.nlargest(5, 'diametro_km_max')`, aplicando una escala monocromática progresiva (`plt.cm.Blues`) y anotaciones numéricas directas al extremo de cada barra.
