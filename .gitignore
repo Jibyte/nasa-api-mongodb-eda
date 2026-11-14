@@ -10,3 +10,6 @@ __pycache__/
 
 # Archivos de sistema operativo
 .DS_Store
+
+# Variables de entorno
+.env

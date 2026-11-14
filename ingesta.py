@@ -1,18 +1,20 @@
+import os
 import requests
+from dotenv import load_dotenv
 from pymongo import MongoClient
 
-API_KEY = 'M9kLQcrkMCMbFcFwhKdRp9m9BwT8MGRdgkb9mzW9'
+load_dotenv()
+API_KEY = os.getenv("NASA_API_KEY")
 
 print("1. Conectando a MongoDB...")
 try:
     cliente_mongo = MongoClient("mongodb://localhost:27017/")
     db = cliente_mongo["taller3_db"]
     coleccion_nasa = db["raw_data"]
-    # Hacemos una prueba rápida de conexión
     cliente_mongo.admin.command('ping')
     print("   ¡Conexión a MongoDB exitosa!")
 except Exception as e:
-    print(f"   ERROR: No se pudo conectar a MongoDB. ¿Está corriendo? Detalle: {e}")
+    print(f"   ERROR: No se pudo conectar a MongoDB. Detalle: {e}")
     exit()
 
 def extraer_y_guardar():
@@ -36,8 +38,7 @@ def extraer_y_guardar():
                 try:
                     coleccion_nasa.insert_one(asteroide)
                     asteroides_guardados += 1
-                except Exception as e:
-                    # Si ya existe, no hacemos nada, pero si es otro error, lo imprimimos (opcional)
+                except Exception:
                     pass
                 
                 if asteroides_guardados >= 100:
@@ -48,10 +49,9 @@ def extraer_y_guardar():
             pagina += 1
         else:
             print(f"   ERROR de la API. Código de estado: {respuesta.status_code}")
-            print(f"   Detalle del error: {respuesta.text}")
             break
             
-    print(f"\n3. Proceso finalizado. Se intentaron guardar {asteroides_guardados} asteroides nuevos.")
+    print(f"\n3. Proceso finalizado. Se guardaron {asteroides_guardados} asteroides nuevos.")
 
 if __name__ == "__main__":
     extraer_y_guardar()
