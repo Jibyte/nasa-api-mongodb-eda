@@ -20,7 +20,7 @@ Consumir la API *Near Earth Object Web Service (NeoWs)* de la NASA para extraer 
 ## Instrucciones de Ejecución
 1. **Clonar el repositorio:**
    ```bash
-   git clone <URL_DE_TU_REPOSITORIO>
+   git clone https://github.com/Jibyte/nasa-api-mongodb-eda
    cd nasa-api-mongodb-eda
    ```
 2. **Crear y activar el entorno virtual:**
